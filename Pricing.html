@@ -395,6 +395,210 @@
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
+  /* ── INTAKE MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(15,14,12,0.6);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .modal-overlay.open {
+    opacity: 1; pointer-events: all;
+  }
+
+  .modal {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 48px;
+    max-width: 600px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    position: relative;
+    transform: translateY(32px) scale(0.97);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+  }
+  .modal-overlay.open .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--off); border: none; cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--muted);
+    transition: background 0.2s, color 0.2s;
+  }
+  .modal-close:hover { background: var(--paper); color: var(--ink); }
+
+  .modal-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--coral-light); color: var(--coral);
+    border-radius: 100px; padding: 5px 14px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 900;
+    letter-spacing: -0.03em; color: var(--ink);
+    line-height: 1.1; margin-bottom: 6px;
+  }
+  .modal-title em { color: var(--coral); font-style: normal; }
+  .modal-sub {
+    font-size: 14px; color: var(--muted); line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  /* Progress bar */
+  .modal-progress {
+    display: flex; gap: 6px; margin-bottom: 32px;
+  }
+  .progress-dot {
+    height: 3px; flex: 1; border-radius: 100px;
+    background: var(--paper);
+    transition: background 0.3s ease;
+  }
+  .progress-dot.active { background: var(--coral); }
+  .progress-dot.done { background: var(--teal); }
+
+  /* Steps */
+  .modal-step { display: none; flex-direction: column; gap: 16px; }
+  .modal-step.active { display: flex; animation: stepIn 0.35s ease; }
+  @keyframes stepIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+  .step-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .step-question {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.02em; color: var(--ink);
+    line-height: 1.3; margin-bottom: 8px;
+  }
+
+  /* Option buttons */
+  .options-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .options-grid.single-col { grid-template-columns: 1fr; }
+
+  .option-btn {
+    border: 1.5px solid var(--border-mid);
+    background: var(--white); border-radius: 14px;
+    padding: 16px 18px; cursor: none;
+    text-align: left; transition: all 0.2s ease;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .option-btn:hover {
+    border-color: var(--coral);
+    background: var(--coral-light);
+    transform: translateY(-2px);
+  }
+  .option-btn.selected {
+    border-color: var(--coral);
+    background: var(--coral-light);
+    box-shadow: 0 0 0 3px rgba(232,80,58,0.12);
+  }
+  .option-icon { font-size: 20px; margin-bottom: 4px; }
+  .option-label { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .option-hint { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* Text inputs */
+  .modal-input, .modal-textarea {
+    width: 100%; padding: 14px 18px;
+    border: 1.5px solid var(--border-mid); border-radius: 12px;
+    background: var(--off); font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; color: var(--ink); outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    resize: none;
+  }
+  .modal-input:focus, .modal-textarea:focus {
+    border-color: var(--coral); background: var(--white);
+  }
+  .modal-textarea { min-height: 100px; line-height: 1.6; }
+
+  .checkbox-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px; border-radius: 12px;
+    border: 1.5px solid var(--border-mid);
+    cursor: none; transition: all 0.2s;
+  }
+  .checkbox-row:hover { border-color: var(--coral); background: var(--coral-light); }
+  .checkbox-row.checked { border-color: var(--coral); background: var(--coral-light); }
+  .checkbox-row input { display: none; }
+  .checkbox-box {
+    width: 20px; height: 20px; border-radius: 6px;
+    border: 2px solid var(--muted2); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 11px; color: var(--white);
+  }
+  .checkbox-row.checked .checkbox-box { background: var(--coral); border-color: var(--coral); }
+  .checkbox-row.checked .checkbox-box::after { content: '✓'; font-weight: 700; }
+  .checkbox-label { font-size: 14px; font-weight: 500; color: var(--ink); }
+
+  /* Nav buttons */
+  .modal-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 24px; gap: 12px;
+  }
+  .btn-back {
+    padding: 12px 24px; border-radius: 100px;
+    border: 1.5px solid var(--border-mid);
+    background: transparent; color: var(--muted);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 600; cursor: none;
+    transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+  .btn-next {
+    padding: 14px 32px; border-radius: 100px;
+    border: none; background: var(--coral);
+    color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 700; cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-left: auto;
+  }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,80,58,0.35); }
+  .btn-next:disabled { opacity: 0.4; transform: none; box-shadow: none; }
+
+  /* Summary step */
+  .summary-card {
+    background: var(--off); border-radius: 14px; padding: 20px 22px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .summary-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font-size: 13px; gap: 16px;
+  }
+  .summary-row .s-label { color: var(--muted); font-weight: 500; flex-shrink: 0; }
+  .summary-row .s-val { color: var(--ink); font-weight: 600; text-align: right; }
+  .summary-divider { height: 1px; background: var(--border); }
+
+  .btn-checkout {
+    width: 100%; padding: 16px;
+    border-radius: 100px; border: none;
+    background: var(--coral); color: var(--white);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px; font-weight: 700; cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 4px;
+  }
+  .btn-checkout:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(232,80,58,0.4); }
+
+  .note-text {
+    font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5;
+    margin-top: 4px;
+  }
+
   @media (max-width: 960px) {
     nav { padding: 20px 24px; }
     nav.scrolled { padding: 16px 24px; }
@@ -416,6 +620,101 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── INTAKE MODAL ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+
+    <div class="modal-badge">✦ Project Intake</div>
+    <h2 class="modal-title">Let's build<br><em>your site.</em></h2>
+    <p class="modal-sub">A few quick questions so I know exactly what you need — takes under 2 minutes.</p>
+
+    <div class="modal-progress" id="progressBar">
+      <div class="progress-dot" data-step="0"></div>
+      <div class="progress-dot" data-step="1"></div>
+      <div class="progress-dot" data-step="2"></div>
+      <div class="progress-dot" data-step="3"></div>
+      <div class="progress-dot" data-step="4"></div>
+    </div>
+
+    <!-- STEP 0: Business type -->
+    <div class="modal-step active" id="step-0">
+      <div><p class="step-label">Step 1 of 5</p><p class="step-question">What kind of business or project is this for?</p></div>
+      <div class="options-grid">
+        <button class="option-btn" data-step="0" data-val="Local Business"><span class="option-icon">🏪</span><span class="option-label">Local Business</span><span class="option-hint">Salon, restaurant, shop, contractor…</span></button>
+        <button class="option-btn" data-step="0" data-val="Freelancer / Creative"><span class="option-icon">🎨</span><span class="option-label">Freelancer / Creative</span><span class="option-hint">Portfolio, photography, design…</span></button>
+        <button class="option-btn" data-step="0" data-val="Personal Brand"><span class="option-icon">⭐</span><span class="option-label">Personal Brand</span><span class="option-hint">Coaching, consulting, influencer…</span></button>
+        <button class="option-btn" data-step="0" data-val="E-commerce / Product"><span class="option-icon">🛍️</span><span class="option-label">E-commerce / Product</span><span class="option-hint">Online store, digital products…</span></button>
+        <button class="option-btn" data-step="0" data-val="Startup / Tech"><span class="option-icon">🚀</span><span class="option-label">Startup / Tech</span><span class="option-hint">SaaS, app, tech company…</span></button>
+        <button class="option-btn" data-step="0" data-val="Other"><span class="option-icon">💡</span><span class="option-label">Something else</span><span class="option-hint">I'll explain below</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 1: Goal -->
+    <div class="modal-step" id="step-1">
+      <div><p class="step-label">Step 2 of 5</p><p class="step-question">What's the main goal of your website?</p></div>
+      <div class="options-grid single-col">
+        <button class="option-btn" data-step="1" data-val="Get more leads / inquiries"><span class="option-label">📞 Get more leads / inquiries</span><span class="option-hint">Drive people to call or fill out a contact form</span></button>
+        <button class="option-btn" data-step="1" data-val="Showcase my work / portfolio"><span class="option-label">🖼️ Showcase my work / portfolio</span><span class="option-hint">Impress visitors with what I've made</span></button>
+        <button class="option-btn" data-step="1" data-val="Sell products or services"><span class="option-label">💳 Sell products or services online</span><span class="option-hint">Take payments directly through the site</span></button>
+        <button class="option-btn" data-step="1" data-val="Build credibility / online presence"><span class="option-label">🏆 Build credibility / online presence</span><span class="option-hint">Look professional and trustworthy</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Style -->
+    <div class="modal-step" id="step-2">
+      <div><p class="step-label">Step 3 of 5</p><p class="step-question">What vibe are you going for?</p></div>
+      <div class="options-grid">
+        <button class="option-btn" data-step="2" data-val="Clean & Minimal"><span class="option-icon">⬜</span><span class="option-label">Clean & Minimal</span><span class="option-hint">Simple, modern, breathing room</span></button>
+        <button class="option-btn" data-step="2" data-val="Bold & Creative"><span class="option-icon">🎭</span><span class="option-label">Bold & Creative</span><span class="option-hint">Big typography, strong colors</span></button>
+        <button class="option-btn" data-step="2" data-val="Warm & Friendly"><span class="option-icon">🌿</span><span class="option-label">Warm & Friendly</span><span class="option-hint">Approachable, cozy, personal</span></button>
+        <button class="option-btn" data-step="2" data-val="Luxury & Premium"><span class="option-icon">✨</span><span class="option-label">Luxury & Premium</span><span class="option-hint">Elegant, refined, high-end</span></button>
+        <button class="option-btn" data-step="2" data-val="Playful & Fun"><span class="option-icon">🎉</span><span class="option-label">Playful & Fun</span><span class="option-hint">Colorful, energetic, youthful</span></button>
+        <button class="option-btn" data-step="2" data-val="You decide!"><span class="option-icon">🎨</span><span class="option-label">You decide!</span><span class="option-hint">I trust your creative vision</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Details -->
+    <div class="modal-step" id="step-3">
+      <div><p class="step-label">Step 4 of 5</p><p class="step-question">Tell me a little more about your project.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div><p style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:8px;">Your name</p><input class="modal-input" id="inputName" type="text" placeholder="First name is fine" autocomplete="off"></div>
+        <div><p style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:8px;">Business / project name</p><input class="modal-input" id="inputBusiness" type="text" placeholder="What should I call it?" autocomplete="off"></div>
+        <div><p style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:8px;">Anything specific you want on the site?</p><textarea class="modal-textarea" id="inputNotes" placeholder="Pages, features, colors, references to sites you like — anything helps!"></textarea></div>
+        <div><p style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:8px;">Add the maintenance plan? (+$29/mo)</p>
+          <div class="checkbox-row" id="maintCheck">
+            <div class="checkbox-box"></div>
+            <span class="checkbox-label">Yes, keep my site updated &amp; running smoothly</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Summary -->
+    <div class="modal-step" id="step-4">
+      <div><p class="step-label">Step 5 of 5</p><p class="step-question">Here's your project summary.</p></div>
+      <div class="summary-card">
+        <div class="summary-row"><span class="s-label">Package</span><span class="s-val" id="sum-package">—</span></div>
+        <div class="summary-divider"></div>
+        <div class="summary-row"><span class="s-label">Business type</span><span class="s-val" id="sum-type">—</span></div>
+        <div class="summary-row"><span class="s-label">Main goal</span><span class="s-val" id="sum-goal">—</span></div>
+        <div class="summary-row"><span class="s-label">Vibe</span><span class="s-val" id="sum-vibe">—</span></div>
+        <div class="summary-row"><span class="s-label">Name</span><span class="s-val" id="sum-name">—</span></div>
+        <div class="summary-row"><span class="s-label">Business</span><span class="s-val" id="sum-biz">—</span></div>
+        <div class="summary-row"><span class="s-label">Maintenance</span><span class="s-val" id="sum-maint">—</span></div>
+        <div class="summary-row" id="sum-notes-row" style="display:none;"><span class="s-label">Notes</span><span class="s-val" id="sum-notes" style="max-width:240px;">—</span></div>
+      </div>
+      <button class="btn-checkout" id="btnCheckout">Proceed to checkout →</button>
+      <p class="note-text">You'll be taken to a secure Stripe checkout page. Your project details will be sent to Dylan automatically.</p>
+    </div>
+
+    <div class="modal-nav" id="modalNav">
+      <button class="btn-back" id="btnBack" style="visibility:hidden;">← Back</button>
+      <button class="btn-next" id="btnNext" disabled>Continue →</button>
+    </div>
+  </div>
+</div>
 
 <nav id="nav">
   <a href="DylansDesigns.html" class="nav-logo">Dylan's <em>Design Studio</em></a>
@@ -596,12 +895,14 @@
   <div class="footer-links">
     <a href="DylansDesigns.html#work">Work</a>
     <a href="DylansDesigns.html#services">Services</a>
-    <a href="mailto:dylansdesignstudio@gmail.com">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#81e5f8ede0eff2e5e4f2e8e6eff2f5f4e5e8eec1e6ece0e8edafe2eeec">Contact</a>
   </div>
   <span class="footer-copy">&copy; 2025 Dylan's Design Studio</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function() {
+  // CURSOR
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -615,19 +916,176 @@
     requestAnimationFrame(animRing);
   }
   animRing();
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width='16px'; cursor.style.height='16px';
-      ring.style.width='52px'; ring.style.height='52px'; ring.style.opacity='0.2';
+  function bigCursor() { cursor.style.width='16px'; cursor.style.height='16px'; ring.style.width='52px'; ring.style.height='52px'; ring.style.opacity='0.2'; }
+  function smallCursor() { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='0.35'; }
+  document.querySelectorAll('a, button, label').forEach(el => {
+    el.addEventListener('mouseenter', bigCursor);
+    el.addEventListener('mouseleave', smallCursor);
+  });
+
+  // NAV SCROLL
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // INTAKE MODAL
+  const stripeLinks = {
+    'Starter':     'https://buy.stripe.com/aFa00j84mfoXa0M47A7g400',
+    'Growth':      'https://buy.stripe.com/eVqaEX5Wea4D7SE7jM7g401',
+    'Pro':         'https://buy.stripe.com/fZu28r1FY1y70qc9rU7g402',
+    'Maintenance': 'https://buy.stripe.com/8x214n0BUa4D8WIgUm7g403'
+  };
+
+  let currentStep = 0;
+  let answers = { package:'', type:'', goal:'', vibe:'', name:'', business:'', notes:'', maintenance:false };
+
+  function openModal(pkg) {
+    answers.package = pkg;
+    currentStep = 0;
+    resetSteps();
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    updateProgress();
+    updateNav();
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function resetSteps() {
+    document.querySelectorAll('.modal-step').forEach((s, i) => s.classList.toggle('active', i === 0));
+    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    answers = { ...answers, type:'', goal:'', vibe:'', name:'', business:'', notes:'', maintenance:false };
+    document.getElementById('inputName').value = '';
+    document.getElementById('inputBusiness').value = '';
+    document.getElementById('inputNotes').value = '';
+    document.getElementById('maintCheck').classList.remove('checked');
+  }
+
+  function updateProgress() {
+    document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+      dot.classList.remove('active','done');
+      if (i < currentStep) dot.classList.add('done');
+      else if (i === currentStep) dot.classList.add('active');
     });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width='10px'; cursor.style.height='10px';
-      ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='0.35';
+  }
+
+  function updateNav() {
+    const back = document.getElementById('btnBack');
+    const next = document.getElementById('btnNext');
+    const modalNav = document.getElementById('modalNav');
+    back.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+    modalNav.style.display = currentStep === 4 ? 'none' : 'flex';
+    if (currentStep === 0) next.disabled = !answers.type;
+    else if (currentStep === 1) next.disabled = !answers.goal;
+    else if (currentStep === 2) next.disabled = !answers.vibe;
+    else next.disabled = false;
+  }
+
+  function goNext() {
+    if (currentStep === 3) {
+      answers.name = document.getElementById('inputName').value.trim() || 'Not provided';
+      answers.business = document.getElementById('inputBusiness').value.trim() || 'Not provided';
+      answers.notes = document.getElementById('inputNotes').value.trim();
+      answers.maintenance = document.getElementById('maintCheck').classList.contains('checked');
+    }
+    if (currentStep < 4) {
+      document.getElementById('step-' + currentStep).classList.remove('active');
+      currentStep++;
+      document.getElementById('step-' + currentStep).classList.add('active');
+      if (currentStep === 4) buildSummary();
+      updateProgress();
+      updateNav();
+    }
+  }
+
+  function goBack() {
+    if (currentStep > 0) {
+      document.getElementById('step-' + currentStep).classList.remove('active');
+      currentStep--;
+      document.getElementById('step-' + currentStep).classList.add('active');
+      updateProgress();
+      updateNav();
+    }
+  }
+
+  function buildSummary() {
+    document.getElementById('sum-package').textContent = answers.package;
+    document.getElementById('sum-type').textContent = answers.type;
+    document.getElementById('sum-goal').textContent = answers.goal;
+    document.getElementById('sum-vibe').textContent = answers.vibe;
+    document.getElementById('sum-name').textContent = answers.name;
+    document.getElementById('sum-biz').textContent = answers.business;
+    document.getElementById('sum-maint').textContent = answers.maintenance ? 'Yes (+$29/mo)' : 'No';
+    if (answers.notes) {
+      document.getElementById('sum-notes').textContent = answers.notes.length > 120 ? answers.notes.slice(0,120)+'…' : answers.notes;
+      document.getElementById('sum-notes-row').style.display = 'flex';
+    } else {
+      document.getElementById('sum-notes-row').style.display = 'none';
+    }
+  }
+
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const step = btn.dataset.step;
+      document.querySelectorAll('.option-btn[data-step="'+step+'"]').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      if (step==='0') answers.type = btn.dataset.val;
+      if (step==='1') answers.goal = btn.dataset.val;
+      if (step==='2') answers.vibe = btn.dataset.val;
+      updateNav();
+      setTimeout(() => { if (!document.getElementById('btnNext').disabled) goNext(); }, 300);
     });
   });
 
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+  document.getElementById('maintCheck').addEventListener('click', function() {
+    this.classList.toggle('checked');
+  });
+
+  document.getElementById('btnNext').addEventListener('click', goNext);
+  document.getElementById('btnBack').addEventListener('click', goBack);
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  });
+
+  document.getElementById('btnCheckout').addEventListener('click', () => {
+    // Submit to Formspree
+    fetch('https://formspree.io/f/mzdkwrjq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        Package: answers.package,
+        'Business Type': answers.type,
+        Goal: answers.goal,
+        Vibe: answers.vibe,
+        Name: answers.name,
+        Business: answers.business,
+        Notes: answers.notes || 'None',
+        'Maintenance Add-on': answers.maintenance ? 'Yes (+$29/mo)' : 'No'
+      })
+    }).catch(() => {}); // silent fail — don't block checkout
+
+    // Open Stripe
+    const url = stripeLinks[answers.package];
+    if (url) window.open(url, '_blank');
+    if (answers.maintenance) setTimeout(() => window.open(stripeLinks['Maintenance'], '_blank'), 500);
+    closeModal();
+  });
+
+  document.querySelectorAll('.plan-cta').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const card = link.closest('.plan-card');
+      const planName = card.querySelector('.plan-name').textContent.trim();
+      openModal(planName);
+    });
+  });
+
+})();
 </script>
 </body>
 </html>
