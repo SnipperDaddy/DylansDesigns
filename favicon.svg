@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Dark navy background -->
+  <rect width="32" height="32" rx="5" fill="#0a0f1e"/>
+  
+  <!-- Big red scripty D centered -->
+  <text x="16" y="24" 
+        font-family="Georgia, serif" 
+        font-size="26" 
+        font-weight="bold" 
+        font-style="italic" 
+        fill="url(#dGrad)"
+        text-anchor="middle">D</text>
+
+  <defs>
+    <linearGradient id="dGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8182c"/>
+      <stop offset="100%" style="stop-color:#cc2233"/>
+    </linearGradient>
+  </defs>
+</svg>
