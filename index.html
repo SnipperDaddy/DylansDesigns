@@ -446,10 +446,14 @@
 
   /* Real screenshot project visuals */
   .pv-real {
-    min-height: 360px; overflow: hidden; position: relative;
+    overflow: hidden; position: relative;
+    min-height: 360px;
   }
   .pv-real img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
     transition: transform 0.5s ease;
   }
   .project-card:hover .pv-real img { transform: scale(1.03); }
@@ -943,8 +947,13 @@
     }
 
     /* Make images fill their container */
-    .pv-real { min-height: 240px !important; max-height: 260px !important; }
-    .pv-real img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .pv-real { min-height: 280px !important; max-height: 320px !important; }
+    .pv-real img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: left top;
+      display: block;
+    }
 
     .project-name { font-size: 28px; }
     .project-desc { font-size: 14px; margin-bottom: 20px; }
@@ -983,7 +992,7 @@
     .hero-title { font-size: 30px; }
     .project-name { font-size: 24px; }
     .contact-title { font-size: 34px; }
-    .pv-real { min-height: 200px !important; max-height: 220px !important; }
+    .pv-real { min-height: 240px !important; max-height: 280px !important; }
   }
 </style>
 </head>
@@ -1113,7 +1122,7 @@
     <!-- PROJECT 1: VIP Hair -->
     <div class="project-card reveal">
       <div class="project-visual pv-real">
-        <img src="project.jpg" alt="VIP Hair Salon website screenshot" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        <img src="project.jpg" alt="VIP Hair Salon website screenshot" style="width:100%;height:100%;object-fit:cover;object-position:left top;display:block;"/>
       </div>
       <div class="project-info">
         <div>
@@ -1132,7 +1141,7 @@
     <!-- PROJECT 2: Lumière MedSpa -->
     <div class="project-card flipped reveal">
       <div class="project-visual pv-real">
-        <img src="med_spa.jpg" alt="Lumière MedSpa website screenshot" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        <img src="med_spa.jpg" alt="Lumière MedSpa website screenshot" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"/>
       </div>
       <div class="project-info">
         <div>
@@ -1151,7 +1160,7 @@
     <!-- PROJECT 3: Landscaping -->
     <div class="project-card reveal">
       <div class="project-visual pv-real">
-        <img src="Pazins_maintenance.jpg" alt="Pazin's Landscaping website screenshot" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        <img src="Pazins_maintenance.jpg" alt="Pazin's Landscaping website screenshot" style="width:100%;height:100%;object-fit:cover;object-position:left top;display:block;"/>
       </div>
       <div class="project-info">
         <div>
@@ -1273,7 +1282,7 @@
     <span class="contact-eyebrow">Get in touch</span>
     <h2 class="contact-title">Let's <em>build</em><br>together.</h2>
     <p class="contact-sub">Have a project in mind? I'd love to hear about it. Drop me a message and let's make something great.</p>
-    <a href="mailto:dylansdesignstudio@gmail.com" class="contact-email">dylansdesignstudio@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#7a1e03161b14091e1f09131d14090e0f1e13153a1d171b131654191517" class="contact-email"><span class="__cf_email__" data-cfemail="b7d3cedbd6d9c4d3d2c4ded0d9c4c3c2d3ded8f7d0dad6dedb99d4d8da">[email&#160;protected]</span></a>
     <a href="Pricing.html" class="contact-cta">Start a project →</a>
   </div>
 </section>
@@ -1288,7 +1297,7 @@
   <span class="footer-copy">&copy; 2026 Dylan's Designs Studio</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
