@@ -20,7 +20,7 @@
     --muted2: #c8c5be;
     --border: rgba(15,14,12,0.08);
     --border-mid: rgba(15,14,12,0.14);
-    --coral: #e8503a;
+    --coral: #cc2233;
     --coral-light: #fdf0ee;
     --indigo: #3d52d5;
     --indigo-light: #eef0fb;
@@ -40,6 +40,11 @@
     line-height: 1.6;
     overflow-x: hidden;
     cursor: none;
+  }
+
+  /* Force no default cursor on ALL interactive elements */
+  a, button, input, select, textarea, label, [role="button"] {
+    cursor: none !important;
   }
 
   .cursor {
@@ -62,38 +67,43 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 24px 56px;
-    background: rgba(248,247,244,0);
+    background: #0a0f1ef7;
     border-bottom: 1px solid transparent;
     transition: all 0.4s ease;
   }
   nav.scrolled {
-    background: rgba(248,247,244,0.95);
+    background: #0a0f1ef7;
     border-color: var(--border);
     backdrop-filter: blur(16px);
-    padding: 18px 56px;
+    padding: 14px 56px;
   }
   .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px; font-weight: 700;
-    color: var(--ink); text-decoration: none;
-    letter-spacing: -0.02em;
+    display: inline-flex; align-items: center;
+    text-decoration: none; line-height: 0;
   }
-  .nav-logo em { color: var(--coral); font-style: normal; }
+  .nav-logo img {
+    height: 72px; width: auto;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.4));
+  }
+  .nav-logo img:hover { transform: scale(1.05); filter: drop-shadow(0 0 14px rgba(204,34,51,0.5)); }
   .nav-links { display: flex; gap: 36px; align-items: center; }
   .nav-links a {
     font-size: 13px; font-weight: 500; color: var(--muted);
     text-decoration: none; transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover { color: #ffffff; }
   .nav-back {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 600;
-    color: var(--ink) !important;
-    border: 1.5px solid var(--border-mid);
-    padding: 8px 20px; border-radius: 100px;
-    transition: border-color 0.2s, background 0.2s !important;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--coral); color: #ffffff !important;
+    border: none;
+    padding: 14px 28px; border-radius: 100px;
+    font-size: 14px; font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .nav-back:hover { border-color: var(--ink) !important; background: rgba(15,14,12,0.04) !important; color: var(--ink) !important; }
+  .nav-back:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 24px rgba(204,34,51,0.3) !important; background: var(--coral) !important; color: #ffffff !important; }
 
   /* HERO */
   .page-hero {
@@ -387,8 +397,9 @@
     padding: 28px 56px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.4); }
-  .footer-logo em { color: var(--coral); font-style: normal; }
+  .footer-logo { display: inline-flex; align-items: center; }
+  .footer-logo img { height: 40px; width: auto; opacity: 0.7; filter: brightness(1.1); transition: opacity 0.2s; }
+  .footer-logo img:hover { opacity: 1; }
   .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
   .footer-links { display: flex; gap: 24px; }
   .footer-links a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; font-weight: 500; }
@@ -704,6 +715,7 @@
         <div class="summary-row"><span class="s-label">Name</span><span class="s-val" id="sum-name">—</span></div>
         <div class="summary-row"><span class="s-label">Business</span><span class="s-val" id="sum-biz">—</span></div>
         <div class="summary-row"><span class="s-label">Maintenance</span><span class="s-val" id="sum-maint">—</span></div>
+        <div class="summary-row" style="text-align: center;">Hosting and domain costs are the client's responsibility, however full setup assistance is included with every project at no extra charge.</span></div>
         <div class="summary-row" id="sum-notes-row" style="display:none;"><span class="s-label">Notes</span><span class="s-val" id="sum-notes" style="max-width:240px;">—</span></div>
       </div>
       <button class="btn-checkout" id="btnCheckout">Proceed to checkout →</button>
@@ -718,12 +730,12 @@
 </div>
 
 <nav id="nav">
-  <a href="index.html" class="nav-logo">Dylan's <em>Design Studio</em></a>
+  <a href="index.html" class="nav-logo"><img src="Dylans-Logo.png" alt="Dylan's Design Studio"></a>
   <div class="nav-links">
-    <a href="index.html#work">Work</a>
+    <a href="index.html#work">Projects</a>
     <a href="index.html#services">Services</a>
     <a href="index.html#about">About</a>
-    <a href="index.html" class="nav-back">← Back to home</a>
+    <a href="index.html" class="nav-back">← Back to Home</a>
   </div>
 </nav>
 
@@ -769,6 +781,10 @@
           <span class="feature-check check-indigo">✓</span>
           Contact form included
         </li>
+        <li>
+          <span class="feature-check check-indigo">✓</span>
+          Up to 25 photos or products
+        </li>
       </ul>
       <a href="https://buy.stripe.com/aFa00j84mfoXa0M47A7g400" target="_blank" class="plan-cta cta-ghost">Get started →</a>
     </div>
@@ -801,6 +817,10 @@
         <li>
           <span class="feature-check check-coral">✓</span>
           Contact + booking integration
+        </li>
+        <li>
+          <span class="feature-check check-coral">✓</span>
+          Up to 50 photos or products
         </li>
       </ul>
       <a href="https://buy.stripe.com/eVqaEX5Wea4D7SE7jM7g401" target="_blank" class="plan-cta cta-featured">Get started →</a>
@@ -836,6 +856,10 @@
         <li>
           <span class="feature-check check-amber">✓</span>
           Priority support
+        </li>
+        <li>
+          <span class="feature-check check-amber">✓</span>
+          Up to 75 photos or products
         </li>
       </ul>
       <a href="https://buy.stripe.com/fZu28r1FY1y70qc9rU7g402" target="_blank" class="plan-cta cta-ghost">Get started →</a>
@@ -892,11 +916,11 @@
 </div>
 
 <footer>
-  <span class="footer-logo">Dylan's <em>Design Studio</em></span>
+  <a href="index.html" class="footer-logo"><img src="Dylans-Logo.png" alt="Dylan's Design Studio"></a>
   <div class="footer-links">
-    <a href="index.html#work">Work</a>
+    <a href="index.html#work">Projects</a>
     <a href="index.html#services">Services</a>
-    <a href="/cdn-cgi/l/email-protection#81e5f8ede0eff2e5e4f2e8e6eff2f5f4e5e8eec1e6ece0e8edafe2eeec">Contact</a>
+    <a href="index.html#contact">Contact</a>
   </div>
   <span class="footer-copy">&copy; 2025 Dylan's Design Studio</span>
 </footer>
